@@ -1,0 +1,4 @@
+idade = prompt('Qual é sua idade')
+anoAtual = 2022
+anoNasc = anoAtual - idade
+alert('Seu ano de nascimento é ' + anoNasc)
