@@ -1,0 +1,61 @@
+<html>
+<head>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <h1 align="center">Jogo de Advinhação</h1>
+  <h3 align="center">Tente advinha qual dos 3 números de 1 a 10 nosso sistema guardou para você!</h3>
+  <input/> <!--abre uma caixa de escrita na página HTML -->
+  <button>Compare com o número misterioso</button> <!-- cria um botão no HTML -->
+  <script language="javascript">   // inicia a escrita em javascript
+    /*Ex. de jogo de advinhação com vários números criados automaticamente, onde os números não se repetem e são diferentes de 0*/
+
+    function sorteia() { // cria uma função com o nome sorteia
+      return Math.round(Math.random() * 10); // retorna através do método Math.random um número aleatório flutuante de 0 a 10 (ex.: 7.58964) e através do método Math.random que esse número aleatório flutuante seja arredondado para o número inteiro mais próximo
+    } // fecha a função
+    
+    function sorteiaNumeros(quantidade) { // cria uma função com o nome sorteiaNumeros que recebe como parâmetro a quantidade de números que podem ser sorteados, nesse exemplo, 3
+      var segredos = []; // cria uma variável com o nome segredos e informa que é um array
+      var numero = 1; // cria uma variável e atribui o número 1 a ela
+      while(numero <= quantidade) { // cria uma condição, enquanto o numero for menor ou igual a quantidade, faça
+        var numeroAleatorio = sorteia(); // cria uma variável como o nome numeroAleatorio que recebe a função sorteia(), ou seja, recebe um número aleatório
+        var achou = false; // cria uma variável como o nome achou, atribuindo a ela o valor falso, a fim de informar que o sistema achou um número ainda não existe na lista
+        if (numeroAleatorio !== 0) { // cria uma condição, se o número aleatório for diferente de 0, então
+          for(var posicao = 0; posicao < segredos.length; posicao++) { // cria uma condição, para a variável posicao, atribuindo o valor de 0, para repetir até a posicao ser menor que a quantidade de números no array, ou seja, 0,1,2, e ao final incrementa mais 1 à posição
+            if(segredos[posicao] == numeroAleatorio){ // cria uma condição, se o númeroaleatório for igual a algum número das posições já criadas no array, então
+              achou = true; // informa ao sistema que o atual número é igual a um já existente na lista
+              break; // finaliza a tentativa e o sistema busca outro número aleatório
+            } // fecha o if
+          } // fecha o for
+          if (achou == false) { // cria uma condição, depois do número aleatório ter passado pelo for, achou continuou igual a falso, então
+            segredos.push(numeroAleatorio); // o número aleatório é inserido na no array segredo
+            numero++; // o número que se iniciou com 1, recebe 2 e entra no while novamente em busca do elemento da segunda posição
+          } // fecha o se
+        } // fecha o se
+      } // fecha o while depois de ter encontrado os 3 números diferentes de 0 de não repetidos
+      return segredos; // retorna os 3 números escolhidos aleatóriamente no array
+    } // fecha a função
+    var segredos = sorteiaNumeros(3); // cria uma variável e atribui a ela a quantidade de número que a função soteiaNumeros irá receber, retornando os números escolhidos
+    console.log(segredos); // exibe no console os três números aleatórios
+    var input = document.querySelector("input"); // cria a variável input no javascript e atribui o input do HTML a ela
+    input.focus(); // colaca o foco do teclado no input, a fim que o usuário não fique clicando para colocar um novo valor
+    function verifica() { // cria a função verifica
+      var achou = false; // cria a variável achou e atribui o valor falso, a fim de informar que o usuário ainda não advinhou o número aleatório
+      for(var posicao = 0; posicao < segredos.length; posicao++) { // cria um condição, para o sistema verifica a partir da posição 0, em todas as posições do array, de 1 por 1, até
+        if(input.value == segredos[posicao]) { // cria uma condição, se o valor digitado for igual um dos valores do array, então
+          alert("Você ACERTOU!"); // exibe o alerta para o usuário informando que ele acertou
+          achou = true; // muda o valor da variável achou para verdadeiro
+          break; // fecha o for
+        } // fecha o se
+     } // fecha o for
+     if(achou == false) { // cria uma condição, se o usuário não acha o valor aleatório, então
+       alert("Você ERROU!"); // exibe na tela que errou
+     } // fecha o se
+     input.value = ""; // limpa o valor
+     input.focus(); // foca no input para digitar o novo valor
+   } // fecha a função
+   var button = document.querySelector("button"); // cria a variável button no javascript e atribui o botão do HTML
+   button.onclick = verifica; // quando o botão receber um clique, chama a função verifica
+  </script> <!-- fecha a escrita em javascript -->
+ </body>
+</html>
